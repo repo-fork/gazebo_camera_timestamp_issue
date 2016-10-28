@@ -5,6 +5,7 @@ Panels:
     Property Tree Widget:
       Expanded:
         - /PointCloud21/Autocompute Value Bounds1
+        - /TF1
       Splitter Ratio: 0.5
     Tree Height: 863
   - Class: rviz/Selection
@@ -124,6 +125,42 @@ Visualization Manager:
       Update Interval: 0
       Value: true
       Visual Enabled: true
+    - Class: rviz/TF
+      Enabled: true
+      Frame Timeout: 15
+      Frames:
+        All Enabled: true
+        base_link:
+          Value: true
+        rgbd_cam_depth_frame:
+          Value: true
+        rgbd_cam_depth_optical_frame:
+          Value: true
+        rgbd_cam_link:
+          Value: true
+        rgbd_cam_rgb_frame:
+          Value: true
+        rgbd_cam_rgb_optical_frame:
+          Value: true
+        spin_link:
+          Value: true
+      Marker Scale: 0.5
+      Name: TF
+      Show Arrows: true
+      Show Axes: true
+      Show Names: true
+      Tree:
+        base_link:
+          spin_link:
+            rgbd_cam_link:
+              rgbd_cam_depth_frame:
+                rgbd_cam_depth_optical_frame:
+                  {}
+              rgbd_cam_rgb_frame:
+                rgbd_cam_rgb_optical_frame:
+                  {}
+      Update Interval: 0
+      Value: true
   Enabled: true
   Global Options:
     Background Color: 48; 48; 48
@@ -148,7 +185,7 @@ Visualization Manager:
   Views:
     Current:
       Class: rviz/XYOrbit
-      Distance: 3.54456
+      Distance: 3.96991
       Enable Stereo Rendering:
         Stereo Eye Separation: 0.06
         Stereo Focal Distance: 1
@@ -160,10 +197,10 @@ Visualization Manager:
         Z: -1.43051e-06
       Name: Current View
       Near Clip Distance: 0.01
-      Pitch: 1.1304
+      Pitch: 0.8054
       Target Frame: <Fixed Frame>
       Value: XYOrbit (rviz)
-      Yaw: 3.3754
+      Yaw: 3.2554
     Saved: ~
 Window Geometry:
   Displays:

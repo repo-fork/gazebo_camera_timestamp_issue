@@ -29,4 +29,6 @@
   </node>
   
   <node pkg="rostopic" type="rostopic" name="spin_command_pub" args="pub /ros_control/spin_joint_velocity_controller/command std_msgs/Float64 3.14 -r 1" />
+  
+  <node name="rviz_argo_default" pkg="rviz" type="rviz" args="-d $(find gazebo_camera_timestamp_issue)/rviz/camera_issue_vis.rviz" />
 </launch>
