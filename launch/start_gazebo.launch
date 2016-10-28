@@ -1,0 +1,32 @@
+<?xml version="1.0"?>
+
+<launch>
+  
+  <include file="$(find gazebo_ros)/launch/empty_world.launch"/>
+
+  <arg name="robot_description" default="$(find xacro)/xacro.py $(find gazebo_camera_timestamp_issue)/urdf/camera_test_model.urdf.xacro"/>
+  
+  <param name="robot_description" command="$(arg robot_description)" />
+ <!-- <param name="robot_description" command="$(find xacro)/xacro.py '$(find hector_tracker_description)/urdf/tracker_default.urdf.xacro'"/>s  -->
+
+  <!-- push robot_description to factory and spawn robot in gazebo -->
+  <node name="spawn_robot" pkg="gazebo_ros" type="spawn_model"
+        args="-param robot_description
+        -urdf
+        -x 0
+        -y 0
+        -z 0.1
+        -model robot_description"
+        respawn="false" output="screen" />
+  
+  
+  <include file="$(find gazebo_camera_timestamp_issue)/launch/ros_controllers.launch"/>
+  
+  <node pkg="robot_state_publisher" type="robot_state_publisher" name="robot_state_publisher" output="screen" >
+    <param name="publish_frequency" type="double" value="50.0" />
+    <param name="use_tf_static" value="true" />    
+    <remap from="joint_states" to="/ros_control/joint_states" />
+  </node>
+  
+  <node pkg="rostopic" type="rostopic" name="spin_command_pub" args="pub /ros_control/spin_joint_velocity_controller/command std_msgs/Float64 3.14 -r 1" />
+</launch>

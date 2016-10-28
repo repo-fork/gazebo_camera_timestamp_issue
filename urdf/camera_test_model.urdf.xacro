@@ -1,0 +1,99 @@
+<?xml version="1.0"?>
+
+<robot name="camera_test"
+       xmlns:xacro="http://playerstage.sourceforge.net/gazebo/xmlschema/#interface"
+       xmlns:controller="http://playerstage.sourceforge.net/gazebo/xmlschema/#controller"
+       xmlns:interface="http://playerstage.sourceforge.net/gazebo/xmlschema/#interface">
+  
+   <xacro:include filename="$(find hector_xacro_tools)/urdf/inertia_tensors.urdf.xacro"/>
+   <xacro:include filename="$(find hector_sensors_description)/urdf/realsense_camera.urdf.xacro"/>
+   <xacro:include filename="$(find hector_sensors_description)/urdf/kinect_camera.urdf.xacro"/>
+  
+   <link name="base_link">
+      <xacro:inertial_sphere mass="5.0" diameter="0.3"/>
+      <visual>
+        <origin xyz="${-0.0} 0.0 ${0.25}" rpy="0 0 0"/>
+        <geometry>
+          <box size="${0.5} 0.5 0.5"/>
+        </geometry>
+      </visual>
+      <collision>
+        <origin xyz="${-0.0} 0.0 ${0.25}" rpy="0 0 0"/>
+        <geometry>
+          <box size="${0.5} 0.5 0.5"/>
+        </geometry>
+      </collision>
+
+      <visual>
+        <origin xyz="${1.0} 0.0 ${1.0}" rpy="0 0 0"/>
+        <geometry>
+          <box size="${0.3} 0.3 2.0"/>
+        </geometry>
+      </visual>
+      <collision>
+        <origin xyz="${1.0} 0.0 ${1.0}" rpy="0 0 0"/>
+        <geometry>
+          <box size="${0.3} 0.3 2.0"/>
+        </geometry>
+      </collision>      
+    </link>
+    
+    <joint name="spin_joint" type="continuous">
+      <origin xyz="0.0 0.0 0.6" rpy="0 0 0"/>
+      <parent link="base_link" />
+      <child link="spin_link"/>
+      <axis xyz="0 0 1" rpy="0 0 0"/>
+      <limit effort="1000" velocity="100"/>
+      <joint_properties damping="500.0" friction="200.0"/>
+    </joint>
+    
+    
+    <transmission name="spin_joint_transmission">
+      <type>transmission_interface/SimpleTransmission</type>
+      <joint name="spin_joint">
+        <hardwareInterface>EffortJointInterface</hardwareInterface>
+      </joint>
+      <actuator name="spin_joint_motor">
+        <hardwareInterface>EffortJointInterface</hardwareInterface>
+        <mechanicalReduction>1</mechanicalReduction>
+      </actuator>
+    </transmission>
+    <gazebo reference="spin_joint">
+      <implicitSpringDamper>1</implicitSpringDamper>
+    </gazebo>
+  
+    <link name="spin_link">
+      <xacro:inertial_cube mass="0.5" diameter="0.07"/>
+      <visual>
+        <origin xyz="${-0.0} 0.0 ${0.0}" rpy="0 0 0"/>
+        <geometry>
+          <box size="${0.03} 0.03 0.03"/>
+        </geometry>
+      </visual>
+      <collision>
+        <origin xyz="${-0.0} 0.0 ${0.0}" rpy="0 0 0"/>
+        <geometry>
+          <box size="${0.03} 0.03 0.03"/>
+        </geometry>
+      </collision>    
+    </link>    
+  
+    <!--
+    <xacro:realsense_camera name="rgbd_cam" parent="spin_link">
+      <origin xyz="0.0 0.0 0.1" rpy="0 0 0"/>
+    </xacro:realsense_camera>      
+    -->
+    
+    <xacro:kinect_camera name="rgbd_cam" parent="spin_link">
+      <origin xyz="0.0 0.0 0.1" rpy="0 0 0"/>
+    </xacro:kinect_camera>      
+    
+    
+    
+    <gazebo>
+      <plugin name="gazebo_ros_control" filename="libgazebo_ros_control.so">
+        <robotNamespace>ros_control</robotNamespace>
+      </plugin>
+    </gazebo>
+    
+</robot>

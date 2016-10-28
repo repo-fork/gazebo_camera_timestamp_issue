@@ -1,0 +1,12 @@
+ros_control: 
+
+  joint_state_controller:
+    type: joint_state_controller/JointStateController
+    publish_rate: 2000
+
+  spin_joint_velocity_controller:
+    type: effort_controllers/JointVelocityController
+    joint: spin_joint
+    pid: {p: 0.05, i: 0.0, d: 0.0}
+
+
