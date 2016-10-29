@@ -15,4 +15,8 @@ roslaunch gazebo_camera_timestamp_issue run_test.launch
 </pre>
 A rviz window shows sensor data and robot model. The expected/intended result is that sensor data aligns with the robot model. This is what happens when using Gazebo2 as shown in this video:
 
-With later Gazebo versions, the intended behavior is not observed anymore and there is a significant offset, with the most likely cause being a offset between camera and joint timestamps:
+[![Alt text](https://img.youtube.com/vi/P1Iyd-b9EsU/0.jpg)](https://www.youtube.com/watch?v=P1Iyd-b9EsU)
+
+With later Gazebo versions, the intended behavior is not observed anymore and there is a significant offset, with the most likely cause appearing to be an offset between camera and joint timestamps:
+
+[![Alt text](https://img.youtube.com/vi/ECSa2iOGzGE/0.jpg)](https://www.youtube.com/watch?v=ECSa2iOGzGE)
