@@ -4,10 +4,11 @@
   
   <include file="$(find gazebo_ros)/launch/empty_world.launch"/>
 
+  <!--
   <arg name="robot_description" default="$(find xacro)/xacro.py $(find gazebo_camera_timestamp_issue)/urdf/camera_test_model.urdf.xacro"/>
-  
   <param name="robot_description" command="$(arg robot_description)" />
- <!-- <param name="robot_description" command="$(find xacro)/xacro.py '$(find hector_tracker_description)/urdf/tracker_default.urdf.xacro'"/>s  -->
+  -->
+  <param name="robot_description" textfile="$(find gazebo_camera_timestamp_issue)/urdf/camera_test_model_adjusted.urdf"/>
 
   <!-- push robot_description to factory and spawn robot in gazebo -->
   <node name="spawn_robot" pkg="gazebo_ros" type="spawn_model"
